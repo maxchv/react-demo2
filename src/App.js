@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, createRef} from 'react';
 import './App.css';
 
 function Header(props) {
@@ -59,17 +59,54 @@ function StudentList(props) {
   );
 }
 
+function StudentForm(props) {
+  const fnameRef = createRef();
+  const lnameRef = createRef();
+  const ageRef = createRef();
+  
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log(fnameRef.current.value);
+    console.log(lnameRef.current.value);
+    console.log(ageRef.current.value);
+  };
+  
+  return (
+    <form onSubmit={submitHandler}>
+      <label>
+        First Name
+        <input required ref={fnameRef}/>
+      </label>
+      <br/>
+      <label>
+        Last Name
+        <input required ref={lnameRef}/>
+      </label>
+      <br/>
+      <label>
+        Age
+        <input required ref={ageRef} type="number" />
+      </label>
+      <br/>
+      <input type="submit"/>
+    </form>
+  );
+}
+
+const students = [
+   { firstName: "Вася", lastName: "Пупкин", age: 21 },
+   { firstName: "Маша", lastName: "Ефросинина", age: 41 },
+   { firstName: "Michael", lastName: "Jackson", age: 51 },
+];
+
 function App() {
-  const students = [
-    { firstName: "Вася", lastName: "Пупкин", age: 21 },
-    { firstName: "Маша", lastName: "Ефросинина", age: 41 },
-    {firstName: "Michael", lastName: "Jackson", age: 51},
-  ];
+
 
   return (
     <div className="App">
       <Header>Hello, World!</Header>
       <Button>{0}</Button>
+      <StudentForm />
       <StudentList students={students}/>
     </div>
   );
