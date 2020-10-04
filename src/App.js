@@ -60,32 +60,32 @@ function StudentList(props) {
 }
 
 function StudentForm(props) {
-  const fnameRef = createRef();
-  const lnameRef = createRef();
-  const ageRef = createRef();
+  let [firstName, setFirstName] = useState('');
+  let [lastName, setLastName] = useState('');
+  let [age, setAge] = useState(0);
   
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(fnameRef.current.value);
-    console.log(lnameRef.current.value);
-    console.log(ageRef.current.value);
+    console.log(firstName);
+    console.log(lastName);
+    console.log(age);
   };
   
   return (
     <form onSubmit={submitHandler}>
       <label>
         First Name
-        <input required ref={fnameRef}/>
+        <input required value={firstName} onChange={e => setFirstName(e.target.value)}/>
       </label>
       <br/>
       <label>
         Last Name
-        <input required ref={lnameRef}/>
+        <input required value={lastName} onChange={e => setLastName(e.target.value)}/>
       </label>
       <br/>
       <label>
         Age
-        <input required ref={ageRef} type="number" />
+        <input required value={age} type="number" onChange={e => setAge(e.target.value)} />
       </label>
       <br/>
       <input type="submit"/>
