@@ -69,6 +69,11 @@ function StudentForm(props) {
     console.log(firstName);
     console.log(lastName);
     console.log(age);
+    props.addStudent({
+      firstName: firstName,
+      lastName: lastName,
+      age: age
+    });
   };
   
   return (
@@ -93,21 +98,29 @@ function StudentForm(props) {
   );
 }
 
-const students = [
+
+
+function App() {
+  
+  const students = [
    { firstName: "Вася", lastName: "Пупкин", age: 21 },
    { firstName: "Маша", lastName: "Ефросинина", age: 41 },
    { firstName: "Michael", lastName: "Jackson", age: 51 },
-];
+  ];
+  let [studentsState, setStudent] = useState(students);
 
-function App() {
-
-
+  const addStudent = (student) => {
+    const newList = new Array(...studentsState);
+    newList.push(student);
+    setStudent(newList);
+  }
+  
   return (
     <div className="App">
       <Header>Hello, World!</Header>
       <Button>{0}</Button>
-      <StudentForm />
-      <StudentList students={students}/>
+      <StudentForm addStudent={addStudent}/>
+      <StudentList students={studentsState}/>
     </div>
   );
 }
